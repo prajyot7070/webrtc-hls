@@ -1,6 +1,5 @@
 # WebRTC to HLS Streaming App
-
-A full-stack application for Fermion's backend assignment. This app demonstrates a WebRTC-based peer connection system that streams media between users and broadcasts the interaction using HLS playback.
+This app demonstrates a WebRTC-based peer connection system that streams media between users and broadcasts the interaction using HLS playback.
 
 ## 🧩 Tech Stack
 
