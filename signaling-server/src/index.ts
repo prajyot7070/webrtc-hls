@@ -1,7 +1,3 @@
-/**
- * signaling-server : Responsbile for relaying information between client and server, helping in Web-rtc negotiations.
- * file location : signaling-server/src/index.ts
- */
 
 import express from 'express';
 import { WebSocketServer, WebSocket } from 'ws';
@@ -49,16 +45,6 @@ wss.on('connection', async (ws: WebSocket) => {
           rooms.set(parsedData.roomId, roomClients);
           currentRoom = parsedData.roomId;
           currentUserId = parsedData.userId;
-
-          // //Send the producer to the new user
-          // const producerData = await fetch('http://localhost:5000/get-producers', {
-          //   method: 'POST',
-          //   headers: {
-          //       'Content-Type': 'application/json'
-          //   },
-          //   body: JSON.stringify({ roomId: parsedData.roomId, userId: parsedData.userId })
-          // }).then(res => res.json());
-          // ws.send(JSON.stringify({ type: 'new-producer', data: producerData }));
 
           // Notify other clients in the room
           roomClients.forEach((client) => {
@@ -122,8 +108,6 @@ wss.on('connection', async (ws: WebSocket) => {
       
                   if (Array.isArray(otherUsersProducers)) {
                       for (const producerInfo of otherUsersProducers) {
-                          // Send just the producerId, as handleNewProducer expects it.
-                          // IMPORTANT: Ensure producerInfo is an object with a 'producerId' property
                           if (producerInfo && producerInfo.producerId) {
                               ws.send(JSON.stringify({ type: 'new-producer', data: { producerId: producerInfo.producerId } }));
                               console.log(`[Signaling] Sent existing producer ${producerInfo.producerId} (from ${producerInfo.peerId || 'unknown'}) to current user ${currentUserId}.`);
@@ -146,15 +130,6 @@ wss.on('connection', async (ws: WebSocket) => {
                     client.ws.send(JSON.stringify({ type: 'new-producer', data: produceData }));
                 }
             });
-            
-            // Call start-hls endpoint
-            // await fetch('http://localhost:5000/start-hls', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify({ roomId: currentRoom })
-            // }).catch(err => console.error('Error starting HLS:', err));
             break;
 
         case 'start-hls':

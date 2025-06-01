@@ -7,7 +7,7 @@ const debug = (message: string, ...args: any[]) => {
 };
 
 interface TransportInfo {
-  transport: WebRtcTransport;
+  // transport: WebRtcTransport;
   producerTransports: Map<string, Transport>; //<userId, Transport>
   consumerTransports: Map<string, Transport>; //<userId, Transport>
   producers: Map<string, Producer>;
@@ -20,11 +20,12 @@ export class RTCManager {
   private router?: Router;
   private rooms: Map<string, TransportInfo> = new Map(); //<token, TransportInfo>
   private hlsManager?: HLSManager;
+  private initialized: Promise<void>;
   
   constructor(worker: Worker) {
     debug('RTCManager constructor called');
     this.worker = worker;
-    this.initializeRouter();
+    this.initialized = this.initializeRouter();
     debug('RTCManager initialization started');
   }
 
@@ -99,7 +100,7 @@ export class RTCManager {
     if (!transportInfo) {
       debug(`Room ${roomId} not found, creating new room`);
       transportInfo = {
-        transport: await this.createWebRtcTransport(),
+        // transport: await this.createWebRtcTransport(),
         producerTransports: new Map(),
         consumerTransports: new Map(),
         producers: new Map(),
