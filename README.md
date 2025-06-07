@@ -1,6 +1,12 @@
 # WebRTC to HLS Streaming App
 This app demonstrates a WebRTC-based peer connection system that streams media between users and broadcasts the interaction using HLS playback.
 
+## Video demo
+
+https://github.com/user-attachments/assets/57ef9ca6-5422-4751-8b41-29333f722783
+
+
+
 ## 🧩 Tech Stack
 
 - **Frontend**: Next.js (located in `call-stream/`)
